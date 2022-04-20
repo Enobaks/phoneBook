@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, createContext } from "react";
 import "./contactForm.css";
 import { PhoneBook } from "../context/BookContext";
 
+export const contactContext = createContext()
+
 const ContactForm = () => {
   const [formInputs, setFormInputs] = useState({});
-  const { contactList } = useContext(PhoneBook);
+  const { contactList, setContactList } = useContext(PhoneBook);
   const handleInput = (e) => {
     // setValue(e.target.value)
     const { name, value } = e.target;
@@ -12,7 +14,7 @@ const ContactForm = () => {
       case "FirstName":
         setFormInputs({ ...formInputs, FirstName: value });
         break;
-      case "LastName":
+        case "LastName":
         setFormInputs({ ...formInputs, LastName: value });
         break;
       case "PhoneNo":
@@ -25,7 +27,9 @@ const ContactForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // contactList.push(formInputs);
+    contactList.push(formInputs);
+    let contacts = [...contactList]
+    setContactList(contacts)
     setFormInputs({
       FirstName: "",
       LastName: "",
@@ -35,13 +39,14 @@ const ContactForm = () => {
   return (
     <div className="wrap">
       <div className="title">Contact Form</div>
-      <form action="">
+      <form action="" >
         <div className="input-field">
           <label htmlFor="FirstName">First Name:</label>
           <input
             type="text"
             placeholder="Input First Name"
             name="FirstName"
+            value={formInputs.FirstName}
             onChange={handleInput}
           />
         </div>
@@ -51,6 +56,7 @@ const ContactForm = () => {
             type="text"
             placeholder="Input Last Name"
             name="LastName"
+            value={formInputs.LastName}
             onChange={handleInput}
           />
         </div>
@@ -60,6 +66,7 @@ const ContactForm = () => {
             type="text"
             placeholder="Input Phone No"
             name="PhoneNo"
+            value={formInputs.PhoneNo}
             onChange={handleInput}
           />
         </div>

@@ -1,19 +1,22 @@
-import React, { useContext } from 'react'
-import {PhoneBook} from "../context/BookContext";
+import React, { useContext } from "react";
+import { PhoneBook } from "../context/BookContext";
+import "./contactLog.css";
 
 const ContactLog = () => {
-    const { contactList } = useContext(PhoneBook)
-    console.log(contactList)
+  const { contactList } = useContext(PhoneBook);
+  console.log(contactList);
   return (
-    // <div className="phoneList">
-    //     {contactList.map(contact, index => {
-    //         <div className="contact" key={index}>
-    //             <p>First name: {contact.FirstName}</p>
-    //         </div>
-    //     })}
-    // </div>
-    <p>Hello</p>
-  )
-}
+    <div className="phoneList">
+      <h3>Contact Lists</h3>
+      {contactList.map(({ FirstName, LastName, PhoneNo }) => (
+        <div key={PhoneNo}>
+          <p>First Name: <b>{FirstName}</b></p>
+          <p>Last Name: <b>{LastName}</b></p>
+          <p>Phone No: <b>{PhoneNo}</b></p>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-export default ContactLog
+export default ContactLog;
